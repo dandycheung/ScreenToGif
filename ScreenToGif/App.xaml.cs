@@ -372,7 +372,7 @@ public partial class App : IDisposable
             PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning;
 
-            BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailure = BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailureOptions.Throw;
+            //BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailure = BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailureOptions.Throw;
 
 #endif
         }
