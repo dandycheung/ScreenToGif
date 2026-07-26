@@ -139,8 +139,6 @@ internal class CachedCapture : ImageCapture
 
                         User32.DestroyIcon(hicon);
                     }
-
-                    Gdi32.DeleteObject(cursorInfo.hCursor);
                 }
             }
             catch (Exception e)
@@ -205,15 +203,26 @@ internal class CachedCapture : ImageCapture
         //Stop the recording first.
         await base.Stop();
 
-        //Then close the streams.
-        //_compressStream.Flush();
-        await _compressStream.DisposeAsync();
+        //Then close the streams, guarding against a partial Start() failure where any stream may be null.
+        if (_compressStream != null)
+        {
+            await _compressStream.DisposeAsync();
+            _compressStream = null;
+        }
 
-        await _bufferedStream.FlushAsync();
-        await _fileStream.FlushAsync();
+        if (_bufferedStream != null)
+        {
+            await _bufferedStream.FlushAsync();
+            await _bufferedStream.DisposeAsync();
+            _bufferedStream = null;
+        }
 
-        await _bufferedStream.DisposeAsync();
-        await _fileStream.DisposeAsync();
+        if (_fileStream != null)
+        {
+            await _fileStream.FlushAsync();
+            await _fileStream.DisposeAsync();
+            _fileStream = null;
+        }
     }
 
     [Obsolete("Only for test")]

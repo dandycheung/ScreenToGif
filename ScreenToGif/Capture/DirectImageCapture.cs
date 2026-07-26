@@ -1,9 +1,3 @@
-using System;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Windows;
 using ScreenToGif.Domain.Enums.Native;
 using ScreenToGif.Domain.Exceptions;
 using ScreenToGif.Model;
@@ -15,6 +9,12 @@ using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
+using System;
+using System.Drawing.Imaging;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows;
 using Device = SharpDX.Direct3D11.Device;
 using MapFlags = SharpDX.Direct3D11.MapFlags;
 
@@ -139,7 +139,7 @@ internal class DirectImageCapture : BaseCapture
         debug2?.ReportLiveObjects(DebugId.Dx, DebugRloFlags.Summary | DebugRloFlags.Detail);
 
 #else
-            Device = new Device(DriverType.Hardware, DeviceCreationFlags.VideoSupport);
+        Device = new Device(DriverType.Hardware, DeviceCreationFlags.VideoSupport);
 #endif
 
         using (var multiThread = Device.QueryInterface<Multithread>())
@@ -1003,9 +1003,10 @@ internal class DirectImageCapture : BaseCapture
         if (!WasStarted)
             return;
 
-        DisposeInternal();
-
+        //Stop the consumer thread first so it can finish using any DirectX resources before disposing them.
         await base.Stop();
+
+        DisposeInternal();
     }
 
     internal void DisposeInternal()
