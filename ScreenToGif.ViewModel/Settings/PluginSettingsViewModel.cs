@@ -375,7 +375,7 @@ public class PluginSettingsViewModel: BaseViewModel
 
             //Check the output to determine the FFmpeg version.
             DetectedFFmpegVersion = FfmpegHelper.IdentifyVersion(output);
-            HasOlderFfmpegVersion = FfmpegHelper.IsOlder(output);
+            HasOlderFfmpegVersion = FfmpegHelper.IsOlder(DetectedFFmpegVersion);
 
             UserSettings.All.FfmpegBinarySize = new FileInfo(FFmpegPath).Length;
         }

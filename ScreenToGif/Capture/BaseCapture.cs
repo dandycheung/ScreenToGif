@@ -1,8 +1,8 @@
+using ScreenToGif.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using System.Windows;
-using ScreenToGif.Model;
+using Application = System.Windows.Application;
 
 namespace ScreenToGif.Capture;
 
@@ -16,7 +16,7 @@ public abstract class BaseCapture : ICapture
     public bool IsAcceptingFrames { get; set; }
     public int FrameCount { get; set; }
     public int MinimumDelay { get; set; }
-        
+
     public int Left { get; set; }
     public int Top { get; set; }
 
@@ -166,14 +166,20 @@ public abstract class BaseCapture : ICapture
         WasStarted = false;
     }
 
-
     private async Task DisposeInternal()
     {
         if (WasStarted)
             await Stop();
 
-        _task?.Dispose();
-        _task = null;
+        //Only dispose the task after it has reached a terminal state to avoid InvalidOperationException.
+        if (_task != null)
+        {
+            if (!_task.IsCompleted)
+                await _task.ConfigureAwait(false);
+
+            _task.Dispose();
+            _task = null;
+        }
 
         BlockingCollection?.Dispose();
         BlockingCollection = null;
@@ -184,7 +190,7 @@ public abstract class BaseCapture : ICapture
         await DisposeInternal();
         GC.SuppressFinalize(this);
     }
-        
+
     public void Dispose()
     {
         DisposeInternal().Wait();

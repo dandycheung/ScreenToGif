@@ -162,7 +162,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Visual Studio:" FontSize="12" VerticalContentAlignment="Center" Margin="15,0,0,0" Foreground="{DynamicResource Element.Foreground}"/>
@@ -174,16 +173,7 @@
                     </Hyperlink>
                 </Label>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="ReSharper:" FontSize="12" VerticalContentAlignment="Center" Margin="15,0,0,0" Foreground="{DynamicResource Element.Foreground}"/>
-
-                <Label Grid.Row="1" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Cursor="Hand" Padding="3,5">
-                    <Hyperlink NavigateUri="https://www.jetbrains.com/resharper" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=NavigateUri}" 
-                               RequestNavigate="Hyperlink_OnRequestNavigate">
-                        jetbrains.com/resharper
-                    </Hyperlink>
-                </Label>
-
-                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource S.Options.About.ABigThanksTo.Everyone}" 
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource S.Options.About.ABigThanksTo.Everyone}" 
                        FontSize="12" VerticalContentAlignment="Center" Margin="15,0,0,0" Foreground="{DynamicResource Element.Foreground}"/>
             </Grid>
         </StackPanel>

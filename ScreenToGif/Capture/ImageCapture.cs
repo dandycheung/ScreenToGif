@@ -1,12 +1,12 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using ScreenToGif.Domain.Enums.Native;
 using ScreenToGif.Model;
 using ScreenToGif.Native.External;
 using ScreenToGif.Native.Structs;
 using ScreenToGif.Util;
 using ScreenToGif.Util.Settings;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Image = System.Drawing.Image;
 
 namespace ScreenToGif.Capture;
@@ -134,8 +134,6 @@ internal class ImageCapture : BaseCapture
 
                         User32.DestroyIcon(hicon);
                     }
-
-                    Gdi32.DeleteObject(cursorInfo.hCursor);
                 }
             }
             catch (Exception)
