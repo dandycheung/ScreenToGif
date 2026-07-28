@@ -219,7 +219,6 @@ internal class CachedCapture : ImageCapture
 
         if (_fileStream != null)
         {
-            await _fileStream.FlushAsync();
             await _fileStream.DisposeAsync();
             _fileStream = null;
         }
